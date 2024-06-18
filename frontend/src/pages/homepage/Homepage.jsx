@@ -1,8 +1,12 @@
 import React from 'react'
+import "./homepage.css"
+import Card from "../../components/card/Card"
 
 function Homepage() {
   return (
-    <div>Homepage</div>
+    <div className='homepage'>
+      <Card/>
+    </div>
   )
 }
 

@@ -1,5 +1,6 @@
 import React from "react";
 import "./card.css";
+import { FaPlus } from "react-icons/fa6";
 
 function Card() {
   return (
@@ -7,15 +8,12 @@ function Card() {
       <img className="card-img" src="" alt="" />
       <div className="card-body">
         <div>
-          <h5 class="card-title">Biriyani</h5>
+          <h3 class="card-title">Book name - Author</h3>
           <p class="card-text">price</p>
         </div>
-        <div>
-            <select name="" id="">1</select>
-            <select name="" id="">Half</select>
-        </div>
-        <button>Add to cart</button>
+        <div className="icon">1 <FaPlus/></div>
       </div>
+      <button className="btncard">Add to cart</button>
     </div>
   );
 }

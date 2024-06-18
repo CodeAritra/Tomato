@@ -4,7 +4,7 @@ import { CiSearch } from "react-icons/ci";
 
 function Navbar() {
   return (
-    <div className="container">
+    <div className="navbar">
       <div className="logo">Tomato</div>
       <div className="searchbar">
         <input className="inputnav" type="text" placeholder="Search a dish" />

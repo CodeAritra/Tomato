@@ -1,18 +1,15 @@
-import Card from "./components/card/Card"
-import Login from "./components/login/Login"
 import Navbar from "./components/navbar/Navbar"
-import Signup from "./components/signup/Signup"
-
+import {Routes,Route} from "react-router-dom"
+import Homepage from "./pages/homepage/Homepage"
 
 function App() {
 
   return (
     <>
     <Navbar/>
-    <Card/>
-    {/* <Login/> */}
-    {/* <Signup/> */}
-      {/* <Footer/> */}
+    <Routes>
+      <Route path="/" element={<Homepage/>}/>
+    </Routes>
     </>
   )
 }

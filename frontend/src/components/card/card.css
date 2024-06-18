@@ -1,11 +1,27 @@
-.card{
-    height: 20vw;
-    width: 20vw;
-    background-color: red;
-    padding: 5px;
+.card {
+  height: 20vw;
+  width: 20vw;
+  background-color: red;
+  padding: 10px;
+  border-radius: 10px;
 }
-.card-img{
+.card-img {
     background-color: white;
     height: 50%;
-    width: 90%;
+    width: 99%;
+    border-radius: 10px;
+}
+.card-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  padding: 0 2px;
+}
+.btncard {
+  height: 2.5vw;
+  width: 20vw;
+  margin-top: 20px;
+  border-radius: 10px;
+  border: none;
 }
