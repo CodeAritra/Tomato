@@ -1,0 +1,10 @@
+.create-product{
+    background-color: aqua;
+    width: 79vw;
+    margin: 2vw auto;
+}
+
+.product{
+    height: 2vw;
+    width: 80%;
+}

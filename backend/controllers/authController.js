@@ -17,17 +17,27 @@ export const signupController = async (req, res) => {
             username,
             email,
             password:hash,
-          });
+          })
+
+          const user = await createdUser.save()
 
           let token = jwt.sign({username},process.env.JWT_KEY)
       
-          if (createdUser) {
+          if (user) {
             res.cookie("token",token)
-            res.send(createdUser);
+            res.send({
+              success:true,
+              message:"Created successfully",
+              createdUser
+            });
           }
     });
   } catch (error) {
-    console.log(error);
+    res.send({
+      success:false,
+      message:"error",
+      error
+    });
   }
 };
 
@@ -44,15 +54,27 @@ export const loginController = async(req,res)=>{
             if(result){
                 let token = jwt.sign({username},process.env.JWT_KEY)
                   res.cookie("token",token)
-                  res.send("Logged In");
+                  res.send({
+                    success:true,
+                    message:"LoggedIn successfully",
+                    token:token,
+                    user
+                  });
                 
             }
             else{
-                res.send("Something went wrong")
+                res.send({
+                  success:false,
+                  message:"error",
+                })
             }
         });
 
     } catch (error) {
-        res.send(error)
+        res.send({
+          success:false,
+          message:"error",
+          error
+        })
     }
 }
