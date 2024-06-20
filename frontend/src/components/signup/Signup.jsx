@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./signup.css";
 import { RxCross2 } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import AppContext from "../../context/AppContext";
 
-function Signup({ setShowSignup, showSignup,setShowLogin }) {
+function Signup() {
   const navigate = useNavigate();
-  const [show, setShow] = useState(true);
+  const { setShowSignup, showSignup, setShowLogin, setAuth ,auth} =
+    useContext(AppContext);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -27,22 +29,27 @@ function Signup({ setShowSignup, showSignup,setShowLogin }) {
   const handlesubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post(
+      const res = await axios.post(
         "http://localhost:5000/auth/signup",
         formData
       );
-      if (data.success) {
-        navigate("/login");
+      if (res.data.success) {
+        setAuth({
+          user: res.data.createdUser,
+          token: res.data.token,
+        });
+        setShowSignup((e) => !e);
+        navigate("/");
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleclick = ()=>{
-    setShowSignup((e) => !e)
-    setShowLogin((e)=>!e)
-  }
+  const handleclick = () => {
+    setShowSignup((e) => !e);
+    setShowLogin((e) => !e);
+  };
 
   return (
     <>
@@ -86,7 +93,9 @@ function Signup({ setShowSignup, showSignup,setShowLogin }) {
               </button>
             </form>
             Already have an account?{" "}
-            <button className="btnlog" onClick={handleclick}>Log in</button>
+            <button className="btnlog" onClick={handleclick}>
+              Log in
+            </button>
           </div>
         </div>
       ) : (

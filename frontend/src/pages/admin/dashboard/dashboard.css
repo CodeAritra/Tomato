@@ -1,19 +1,13 @@
+
+
 .admin-dashboard{
-width: 84vw;
-margin: 2vw auto;
-}
-.title-dashboard{
-    text-align: center;
-    margin-bottom: 20px;
-}
-.btn-dashboard{
-    height: 1vw;
-    width: 1vw;
     background-color: antiquewhite;
-    border: 1px solid black;
-    border-radius: 20px;
-    padding: 1vw;
+    width: 100vw;
+    height: 80vh;
+    display: flex;
+    justify-content: space-evenly;
 }
-.body-dashboard{
-    margin-top: 30px;
+.dashboard-body{
+    background-color: aquamarine;
+    width: 63%;
 }

@@ -1,18 +1,19 @@
-import React from 'react'
-import "./dashboard.css"
-import Card from "../../../components/card/Card"
-import { Link } from 'react-router-dom'
+import React from "react";
+import "./dashboard.css";
+import { Link } from "react-router-dom";
+import Sidebar from "../../../components/sidebar/Sidebar"
 
 function Dashboard() {
   return (
-    <div className='admin-dashboard'>
-        <h1 className='title-dashboard'>Admin Dashboard</h1>
-        <Link to='/create-product' className='btn-dashboard link'>Create Product</Link>
-        <div className='body-dashboard'>
-            <Card/>
-        </div>
-    </div>
-  )
+    <>
+      <div className="admin-dashboard">
+     <div><Sidebar/></div>
+      <div className="dashboard-body">
+        <h1>Admin Details</h1>
+      </div>
+      </div>
+    </>
+  );
 }
 
-export default Dashboard
+export default Dashboard;

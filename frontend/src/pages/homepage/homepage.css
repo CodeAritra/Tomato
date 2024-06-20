@@ -1,5 +1,7 @@
 .homepage{
-    background-color: azure;
-    margin: 1vw auto;
+    margin: 1vw 15rem;
     width: 80vw;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
 }

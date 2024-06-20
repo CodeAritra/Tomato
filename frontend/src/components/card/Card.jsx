@@ -2,14 +2,14 @@ import React from "react";
 import "./card.css";
 import { FaPlus } from "react-icons/fa6";
 
-function Card() {
+function Card({name,price}) {
   return (
     <div className="card">
       <img className="card-img" src="" alt="" />
       <div className="card-body">
         <div>
-          <h3 class="card-title">Book name - Author</h3>
-          <p class="card-text">price</p>
+          <h3 className="card-title">Book name - {name}</h3>
+          <p className="card-text">Rs. {price}</p>
         </div>
         <div className="icon">1 <FaPlus/></div>
       </div>

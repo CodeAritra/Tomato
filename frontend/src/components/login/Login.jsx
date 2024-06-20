@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "../signup/signup.css";
 import { RxCross2 } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AppContext } from "../../context/AppContext.js";
 
-function Login({ setShowLogin, showLogin ,setShowSignup}) {
+function Login() {
+  const {  setShowLogin, showLogin, setShowSignup,setAuth,auth } =
+    useContext(AppContext);
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
@@ -22,33 +26,36 @@ function Login({ setShowLogin, showLogin ,setShowSignup}) {
     try {
       e.preventDefault();
 
-      const { data } = await axios.post(
+      const res = await axios.post(
         "http://localhost:5000/auth/login",
         formData
       );
-      if (data.success) {
-        localStorage.setItem("token", data.token);
+      if (res.data.success) {
+        setShowLogin((e) => !e);
+        setAuth({
+          user: res.data.user,
+          token: res.data.token,
+        });
+       const parsed = JSON.stringify(res.data)
+        localStorage.setItem("token", parsed);
         navigate("/");
       }
     } catch (error) {
       console.log(error);
     }
   };
-  // useEffect(() => {
-  //   console.log(formData);
-  // }, [formData]);
 
-  const handleclick = ()=>{
-    setShowLogin((e)=>!e)
-    setShowSignup((e) => !e)
-  }
+  const handleclick = () => {
+    setShowLogin((e) => !e);
+    setShowSignup((e) => !e);
+  };
   return (
     <>
       {showLogin ? (
         <div className="modal">
           <div className="signupform">
             <div className="top">
-              <h2 >Login</h2>
+              <h2>Login</h2>
               <div className="icon">
                 <RxCross2 onClick={() => setShowLogin((e) => !e)} />
               </div>
@@ -75,7 +82,9 @@ function Login({ setShowLogin, showLogin ,setShowSignup}) {
               </button>
             </form>
             Don't have an account?{" "}
-            <button className="btnlog" onClick={handleclick}>Create here</button>
+            <button className="btnlog" onClick={handleclick}>
+              Create here
+            </button>
           </div>
         </div>
       ) : (

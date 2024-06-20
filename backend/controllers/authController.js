@@ -28,6 +28,7 @@ export const signupController = async (req, res) => {
             res.send({
               success:true,
               message:"Created successfully",
+              token:token,
               createdUser
             });
           }
