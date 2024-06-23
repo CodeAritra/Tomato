@@ -1,26 +1,24 @@
 import React, { useContext, useState, useEffect } from "react";
 import "./Navbar.css";
 import { CiSearch } from "react-icons/ci";
+import { BsCart } from "react-icons/bs";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { AppContext } from "../../context/AppContext.js";
 import { useRef } from "react";
 
 function Navbar() {
-  const { setShowLogin, setShowSignup, auth,setAuth } = useContext(AppContext);
+  const { setShowLogin, setShowSignup, auth, setAuth } = useContext(AppContext);
 
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  const handlelogout = ()=>{
-    localStorage.removeItem('token');
-    setAuth({...auth,
-      user: "",
-      token: "",
-    })
+  const handlelogout = () => {
+    localStorage.removeItem("token");
+    setAuth({ ...auth, user: "", token: "" });
     // setIsLoggedin(false)
     console.log("Logout");
-}
+  };
 
   const handleToggle = () => {
     console.log("Clicked");
@@ -33,6 +31,10 @@ function Navbar() {
     }
   };
 
+  const handlecart = ()=>{
+    console.log("HI");
+  }
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -42,7 +44,7 @@ function Navbar() {
 
   return (
     <div className="navbar">
-      <div className="logo">Tomato</div>
+      <div className="logo">Book Store</div>
       <div className="searchbar">
         <input className="inputnav" type="text" placeholder="Search a dish" />
         <div className="icon">
@@ -52,24 +54,33 @@ function Navbar() {
       <div className="btn-nav">
         {auth.user ? (
           <>
+            <Link to="/" className="icon link">Home</Link>
+            <Link to="/cart" className="icon link" onClick={handlecart}>
+              <BsCart />
+            </Link>
             <div className="dropdown" ref={dropdownRef}>
               <button className="dropdown-toggle" onClick={handleToggle}>
-                {auth.user.username}<IoMdArrowDropdown className="navicon"/>
+                {auth.user.username}
+                <IoMdArrowDropdown className="navicon" />
               </button>
               {isOpen && (
                 <div className="dropdown-menu">
-                  {auth.user.role===1?
-                  <>
-                  <Link to="/dashboard" className="dropdown-item">
-                    Dashboard
-                  </Link>
-                  </>:
-                  <>
-                  <Link to="/myorder" className="dropdown-item">
-                    My Orders
-                  </Link>
-                  </>}
-                  <p className="dropdown-item" onClick={handlelogout}>Log out</p>
+                  {auth.user.role === 1 ? (
+                    <>
+                      <Link to="/dashboard" className="dropdown-item">
+                        Dashboard
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <Link to="/myorder" className="dropdown-item">
+                        My Orders
+                      </Link>
+                    </>
+                  )}
+                  <p className="dropdown-item" onClick={handlelogout}>
+                    Log out
+                  </p>
                 </div>
               )}
             </div>

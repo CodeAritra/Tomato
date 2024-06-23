@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors"
 import UserRoute from "./Routes/UserRoute.js"
 import productRoute from "./Routes/productRoute.js"
+import cartRoute from "./Routes/cartRoute.js"
 
 configDotenv();
 connectDB();
@@ -17,6 +18,7 @@ app.use(express.json())
 app.use(cookieParser())
 app.use('/auth/',UserRoute)
 app.use('/product/',productRoute)
+app.use("/cart/",cartRoute)
 
 app.get("/", (req, res) => {
   res.send("HIIIII");

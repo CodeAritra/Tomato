@@ -1,5 +1,13 @@
 import mongoose from "mongoose";
 
+const cartItemSchema = mongoose.Schema({
+  id: String,
+  bookname: String,
+  price: Number,
+  quantity: { type: Number, default: 1 }
+});
+
+
 const UserSchema = mongoose.Schema(
   {
     username: {
@@ -15,6 +23,7 @@ const UserSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    cartData: [cartItemSchema],
     role: {
       type: Number,
       default: 0,

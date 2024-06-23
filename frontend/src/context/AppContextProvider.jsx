@@ -3,10 +3,12 @@ import AppContext from "./AppContext";
 
 // Create a Provider Component
 function AppProvider({ children }) {
-  const [show, setShow] = useState({success:"false",id:""});
+  const [show, setShow] = useState({ success: "false", id: "" });
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
   const [product, setProduct] = useState([]);
+  const [productId, setProductId] = useState([]);
+  const [quantity, setQuantity] = useState({});
   const [auth, setAuth] = useState({
     user: "",
     token: "",
@@ -39,7 +41,11 @@ function AppProvider({ children }) {
         product,
         setProduct,
         show,
-        setShow
+        setShow,
+        productId,
+        setProductId,
+        quantity,
+        setQuantity,
       }}
     >
       {children}

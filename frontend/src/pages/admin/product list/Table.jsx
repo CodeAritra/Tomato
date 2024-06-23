@@ -5,8 +5,8 @@ function Table({bookname,price,quantity,action}) {
     <tr>
       <td>yo</td>
       <td>{bookname}</td>
-      <td>{price}</td>
       <td>{quantity}</td>
+      <td>{price}</td>
       <td>{action}</td>
     </tr>
   );

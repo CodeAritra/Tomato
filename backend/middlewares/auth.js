@@ -7,7 +7,6 @@ export const isLoggedIn = async (req, res, next) => {
     try {
       token = req.headers.authorization;
       const decoded = jwt.verify(token, process.env.JWT_KEY);
-
       req.user = decoded
       next();
     } catch (error) {

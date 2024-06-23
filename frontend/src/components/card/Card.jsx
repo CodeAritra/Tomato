@@ -3,6 +3,11 @@ import "./card.css";
 import { FaPlus } from "react-icons/fa6";
 
 function Card({name,price}) {
+
+  const handleclick = ()=>{
+    console.log("Added to cart");
+  }
+
   return (
     <div className="card">
       <img className="card-img" src="" alt="" />
@@ -13,7 +18,7 @@ function Card({name,price}) {
         </div>
         <div className="icon">1 <FaPlus/></div>
       </div>
-      <button className="btncard">Add to cart</button>
+      <button className="btncard" onClick={handleclick}>Add to cart</button>
     </div>
   );
 }

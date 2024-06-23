@@ -95,8 +95,8 @@ function Productlist() {
                         <tr>
                           <th>Image</th>
                           <th>Book Name</th>
-                          <th>Price</th>
                           <th>Quantity</th>
+                          <th>Price</th>
                           <th>Action</th>
                         </tr>
                       </thead>

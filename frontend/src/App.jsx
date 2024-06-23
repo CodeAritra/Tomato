@@ -9,6 +9,7 @@ import CreateProduct from "./pages/admin/CreateProduct/CreateProduct";
 import Orders from "./pages/admin/orders/Orders";
 import Productlist from "./pages/admin/product list/Productlist";
 import AppContext from "./context/AppContext";
+import Cart from "./pages/cart/Cart";
 
 function App() {
   const {showLogin,showSignup} =useContext(AppContext)
@@ -23,6 +24,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Homepage />} />
+          <Route path="/cart" element={<Cart />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/create-product" element={<CreateProduct />} />
           <Route path="/product-list" element={<Productlist />} />
