@@ -5,7 +5,7 @@ import axios from "axios";
 import AppContext from "../../context/AppContext";
 
 function Homepage() {
-  const { product, setProduct, quantity, setQuantity } = useContext(AppContext);
+  const { product, setProduct, quantity, setQuantity,setCart } = useContext(AppContext);
 
   const fetchAllProducts = async () => {
     const { data } = await axios.get(
@@ -47,6 +47,7 @@ function Homepage() {
         }
       );
       if(dataAdded.data.success){
+        setCart(dataAdded.data.user.cartData)
         console.log("Added to cart");
       }
     } catch (error) {

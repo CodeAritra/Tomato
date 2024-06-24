@@ -6,6 +6,7 @@ import cors from "cors"
 import UserRoute from "./Routes/UserRoute.js"
 import productRoute from "./Routes/productRoute.js"
 import cartRoute from "./Routes/cartRoute.js"
+import orderRoute from "./Routes/orderRoute.js"
 
 configDotenv();
 connectDB();
@@ -19,6 +20,7 @@ app.use(cookieParser())
 app.use('/auth/',UserRoute)
 app.use('/product/',productRoute)
 app.use("/cart/",cartRoute)
+app.use("/order/",orderRoute)
 
 app.get("/", (req, res) => {
   res.send("HIIIII");

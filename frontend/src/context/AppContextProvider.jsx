@@ -9,6 +9,8 @@ function AppProvider({ children }) {
   const [product, setProduct] = useState([]);
   const [productId, setProductId] = useState([]);
   const [quantity, setQuantity] = useState({});
+  const [cart, setCart] = useState([]);
+
   const [auth, setAuth] = useState({
     user: "",
     token: "",
@@ -46,6 +48,8 @@ function AppProvider({ children }) {
         setProductId,
         quantity,
         setQuantity,
+        cart,
+        setCart,
       }}
     >
       {children}

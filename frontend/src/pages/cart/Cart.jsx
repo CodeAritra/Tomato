@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./cart.css";
 import Table from "../admin/product list/Table";
-import userModel from "../../../../backend/models/User";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import AppContext from "../../context/AppContext";
 
 function Cart() {
-  const [cart, setCart] = useState([]);
-  const { quantity } = useContext(AppContext);
+  const { cart, setCart } = useContext(AppContext);
 
+  
   const fetchData = async () => {
     try {
       let data = localStorage.getItem("token");
@@ -84,7 +84,6 @@ function Cart() {
 
   const calculateTotal = (cartItems) => {
     let total = 0;
-    let quantities = 0;
     cartItems.forEach((item) => {
       total += item.price * item.quantity;
     });
@@ -94,7 +93,7 @@ function Cart() {
   const calculateQuantity = (cartItems) => {
     let quantities = 0;
     cartItems.forEach((item) => {
-      quantities +=  item.quantity;
+      quantities += item.quantity;
     });
     return quantities;
   };
@@ -159,7 +158,9 @@ function Cart() {
                   <p>Rs. {total}</p>
                 </div>
               </div>
-              <button className="btn-pay">Place Order</button>
+              <Link to="/orders" className="btn-pay ">
+                Place Order
+              </Link>
             </div>
           </div>
         </>

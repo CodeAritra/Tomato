@@ -49,13 +49,14 @@
   margin: 35px 0;
 }
 .btn-pay {
-  width: 25vw;
   margin: 0 6vw;
   border-radius: 8px;
-  height: 2.3vw;
   border: none;
   font-size: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+  color: black;    
+  padding: 6px 11px;
 }
 .btn-pay:hover{
     background-color: #ffffff;
