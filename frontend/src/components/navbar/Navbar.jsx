@@ -3,7 +3,7 @@ import "./Navbar.css";
 import { CiSearch } from "react-icons/ci";
 import { BsCart } from "react-icons/bs";
 import { IoMdArrowDropdown } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/AppContext.js";
 import { useRef } from "react";
 
@@ -12,12 +12,14 @@ function Navbar() {
 
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate()
 
   const handlelogout = () => {
     localStorage.removeItem("token");
     setAuth({ ...auth, user: "", token: "" });
     // setIsLoggedin(false)
     console.log("Logout");
+    navigate("/")
   };
 
   const handleToggle = () => {

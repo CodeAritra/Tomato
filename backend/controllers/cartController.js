@@ -7,7 +7,6 @@ export const add = async (req, res) => {
     const id = req.params.pid;
     const product = await productModel.findById(id);
     const user = await userModel.findOne({ username: req.user.username });
-    console.log(product);
     let item = user.cartData.find((i) => i.id === id);
     if (item) {
       item.quantity++;

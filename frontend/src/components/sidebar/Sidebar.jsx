@@ -19,7 +19,7 @@ function Sidebar() {
           <Link to="/product-list" onClick={()=>setShowupdate(false)}>Product List</Link>
         </li>
         <li>
-          <Link to="/orders">Orders</Link>
+          <Link to="/admin/orders">Orders</Link>
         </li>
       </ul>
     </div>

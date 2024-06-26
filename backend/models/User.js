@@ -4,9 +4,8 @@ const cartItemSchema = mongoose.Schema({
   id: String,
   bookname: String,
   price: Number,
-  quantity: { type: Number, default: 1 }
+  quantity: { type: Number, default: 1 },
 });
-
 
 const UserSchema = mongoose.Schema(
   {
@@ -24,6 +23,12 @@ const UserSchema = mongoose.Schema(
       required: true,
     },
     cartData: [cartItemSchema],
+    order: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "order",
+      },
+    ],
     role: {
       type: Number,
       default: 0,
@@ -32,5 +37,5 @@ const UserSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-const userModel = mongoose.model("user", UserSchema);
+const userModel = mongoose.model("User", UserSchema);
 export default userModel;

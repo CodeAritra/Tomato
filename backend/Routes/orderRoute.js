@@ -1,9 +1,17 @@
 import express from "express";
-import { isLoggedIn } from "../middlewares/auth.js";
-import { createOrder } from "../controllers/orderController.js";
+import { isAdmin, isLoggedIn } from "../middlewares/auth.js";
+import {
+  braintreePayment,
+  braintreeToken,
+  createOrder,
+  getallorder,
+} from "../controllers/orderController.js";
 
-const router = express.Router()
+const router = express.Router();
 
-router.post("/create-order",isLoggedIn,createOrder)
+router.post("/create-order", isLoggedIn, createOrder);
+router.get("/admin", isLoggedIn,isAdmin, getallorder);
+router.get("/braintree/token", braintreeToken);
+router.post("/braintree/payment", isLoggedIn, braintreePayment);
 
-export default router
+export default router;

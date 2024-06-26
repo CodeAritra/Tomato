@@ -22,10 +22,6 @@ function Userorder() {
     }));
   };
 
-  // useEffect(() => {
-  //   console.log(deliveryData);
-  // }, [deliveryData]);
-
   const calculateTotal = (cartItems) => {
     let total = 0;
     cartItems.forEach((item) => {
@@ -50,26 +46,22 @@ function Userorder() {
     let cartData = [];
     cart.map((ele) => {
       if (cart) {
-        cartData.push(ele);
+        cartData.push(ele.bookname);
       }
     });
-    // console.log("cart data = ", cartData);
 
-    const orderdata = {
-      items: cartData,
-      amount: total,
-      address: deliveryData,
-    };
-
-    // console.log("order = ", orderdata);
+     const orderdata = {
+       items: cartData,
+       amount: total,
+       address: deliveryData,
+     };
 
     try {
       let data = localStorage.getItem("token");
       let parsed = JSON.parse(data);
       let token = parsed.token;
       let res = await axios.post(
-        "http://localhost:5000/order/create-order",
-        orderdata,
+        "http://localhost:5000/order/create-order",orderdata,
         {
           headers: {
             authorization: `${token}`,
@@ -77,14 +69,35 @@ function Userorder() {
         }
       );
       console.log(res.data);
+      let options = {
+        "key": "rzp_test_zPOYkBoYoPgKnD", // Enter the Key ID generated from the Dashboard
+        "amount": total*100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Book store",
+        "description": "Test Transaction",
+        "image": "https://example.com/your_logo",
+        "order_id": res.data.razoppayOrderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
+        "prefill": {
+            "name": "Gaurav Kumar",
+            "email": "gaurav.kumar@example.com",
+            "contact": "9000090000"
+        },
+        "notes": {
+            "address": "Razorpay Corporate Office"
+        },
+        "theme": {
+            "color": "#3399cc"
+        }
+    };
+    let rzp1 = new Razorpay(options);
+    rzp1.open();
+    e.preventDefault();
     } catch (error) {
       console.log(error);
     }
   };
 
-  // useEffect(() => {
-  //   console.log(cart);
-  // }, []);
 
   return (
     <form onSubmit={handlesubmit} className="userorder">
@@ -160,7 +173,8 @@ function Userorder() {
               <p>Rs. {total}</p>
             </div>
           </div>
-          <button type="submit" className="btn-pay ">
+          <div id="dropin-container"></div>
+          <button type="submit" className="btn-pay " >
             Proceed to pay
           </button>
         </div>
