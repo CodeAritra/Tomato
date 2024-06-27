@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./homepage.css";
 import { FaPlus } from "react-icons/fa6";
 import axios from "axios";
@@ -9,9 +9,20 @@ import {  toast } from "react-toastify";
 function Homepage() {
   const { product, setProduct, quantity, setQuantity,setCart,auth } = useContext(AppContext);
 
+  const [token,setToken] = useState(false)
 
+  const getUser = ()=>{
+    let data = localStorage.getItem("token");
+    let parsed = JSON.parse(data);
+    let token = parsed.token;
+    if(token){
+      setToken(true)
+    }
+  }
 
-
+  useEffect(()=>{
+    getUser()
+  },[])
 
   const fetchAllProducts = async () => {
     const { data } = await axios.get(
@@ -63,10 +74,6 @@ function Homepage() {
       console.log(error);
     }
   };
-useEffect(()=>{
-  console.log("auth = ",auth);
-},[])
-
 
   return (
     <div className="homepage">
