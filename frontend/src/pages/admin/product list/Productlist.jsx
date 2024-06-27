@@ -5,6 +5,7 @@ import AppContext from "../../../context/AppContext";
 import axios from "axios";
 import Table from "./Table";
 import UpdateProduct from "../updateProduct/UpdateProduct";
+import { toast } from "react-toastify";
 
 function Productlist() {
   const { product, setProduct, setShow, show } = useContext(AppContext);
@@ -36,38 +37,16 @@ function Productlist() {
           },
         }
       );
-      console.log(deletedproduct);
+      // console.log(deletedproduct);
+      toast.success(deletedproduct.data.message)
     } catch (error) {
       console.log(error);
+      toast.error(error)
     }
   };
 
-  const handleupdate = (id) => {
-    setShow(true);
-    console.log("clicked");
-    update(id);
-  };
 
-  const update = async (id) => {
-    let data = localStorage.getItem("token");
-    let parsed = JSON.parse(data);
-    let token = parsed.token;
-
-    try {
-      let updatedproduct = await axios.put(
-        `http://localhost:5000/product/update-product/${id}`,
-        productData,
-        {
-          headers: {
-            authorization: `${token}`,
-          },
-        }
-      );
-      console.log(updatedproduct);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+ 
 
   useEffect(() => {
     fetchAllProducts();

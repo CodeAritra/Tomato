@@ -49,7 +49,7 @@ function AppProvider({ children }) {
         quantity,
         setQuantity,
         cart,
-        setCart,
+        setCart
       }}
     >
       {children}

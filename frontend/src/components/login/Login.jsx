@@ -2,11 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import "../signup/signup.css";
 import { RxCross2 } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import axios from "axios";
 import { AppContext } from "../../context/AppContext.js";
 
 function Login() {
-  const {  setShowLogin, showLogin, setShowSignup,setAuth,auth } =
+  const { setShowLogin, showLogin, setShowSignup, setAuth } =
     useContext(AppContext);
 
   const navigate = useNavigate();
@@ -30,16 +31,18 @@ function Login() {
         "http://localhost:5000/auth/login",
         formData
       );
+      console.log(res.data);
       if (res.data.success) {
         setShowLogin((e) => !e);
         setAuth({
           user: res.data.user,
           token: res.data.token,
         });
-       const parsed = JSON.stringify(res.data)
+        const parsed = JSON.stringify(res.data);
         localStorage.setItem("token", parsed);
         navigate("/");
       }
+      toast.success(res.data.message);
     } catch (error) {
       console.log(error);
     }
@@ -62,6 +65,7 @@ function Login() {
             </div>
             <form onSubmit={handlesubmit}>
               <input
+                required
                 className="inputsign"
                 type="text"
                 placeholder="Username"
@@ -70,6 +74,7 @@ function Login() {
                 value={formData.username}
               />
               <input
+                required
                 className="inputsign"
                 type="password"
                 placeholder="Password"

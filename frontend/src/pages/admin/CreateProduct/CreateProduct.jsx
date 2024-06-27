@@ -3,6 +3,7 @@ import "./createproduct.css";
 import axios from "axios";
 import Sidebar from "../../../components/sidebar/Sidebar"
 import { useNavigate } from "react-router-dom";
+import {toast} from "react-toastify"
 
 
 function CreateProduct() {
@@ -38,12 +39,14 @@ function CreateProduct() {
         }
       );
      if(data.success){
-      console.log(data)
+      // console.log(data)
+      toast.success(data.message)
       navigate("/product-list")
       // setProduct(...product,data.product)
      };
     } catch (error) {
       console.log(error);
+      toast.error(error)
     }
   };
 

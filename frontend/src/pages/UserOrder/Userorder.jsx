@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import "./userorder.css";
 import axios from "axios";
 import AppContext from "../../context/AppContext";
+import { toast } from "react-toastify";
 
 function Userorder() {
   const { cart, setCart } = useContext(AppContext);
@@ -50,18 +51,19 @@ function Userorder() {
       }
     });
 
-     const orderdata = {
-       items: cartData,
-       amount: total,
-       address: deliveryData,
-     };
+    const orderdata = {
+      items: cartData,
+      amount: total,
+      address: deliveryData,
+    };
 
     try {
       let data = localStorage.getItem("token");
       let parsed = JSON.parse(data);
       let token = parsed.token;
       let res = await axios.post(
-        "http://localhost:5000/order/create-order",orderdata,
+        "http://localhost:5000/order/create-order",
+        orderdata,
         {
           headers: {
             authorization: `${token}`,
@@ -70,40 +72,41 @@ function Userorder() {
       );
       console.log(res.data);
       let options = {
-        "key": "rzp_test_zPOYkBoYoPgKnD", // Enter the Key ID generated from the Dashboard
-        "amount": total*100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-        "currency": "INR",
-        "name": "Book store",
-        "description": "Test Transaction",
-        "image": "https://example.com/your_logo",
-        "order_id": res.data.razoppayOrderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-        "callback_url": "https://eneqd3r9zrjok.x.pipedream.net/",
-        "prefill": {
-            "name": "Gaurav Kumar",
-            "email": "gaurav.kumar@example.com",
-            "contact": "9000090000"
+        key: "rzp_test_zPOYkBoYoPgKnD", // Enter the Key ID generated from the Dashboard
+        amount: total * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        currency: "INR",
+        name: "Book store",
+        description: "Test Transaction",
+        image: "https://example.com/your_logo",
+        order_id: res.data.razoppayOrderId, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        callback_url: "https://eneqd3r9zrjok.x.pipedream.net/",
+        prefill: {
+          name: "Gaurav Kumar",
+          email: "gaurav.kumar@example.com",
+          contact: "9000090000",
         },
-        "notes": {
-            "address": "Razorpay Corporate Office"
+        notes: {
+          address: "Razorpay Corporate Office",
         },
-        "theme": {
-            "color": "#3399cc"
-        }
-    };
-    let rzp1 = new Razorpay(options);
-    rzp1.open();
-    e.preventDefault();
+        theme: {
+          color: "#3399cc",
+        },
+      };
+      let rzp1 = new Razorpay(options);
+      rzp1.open();
+      e.preventDefault();
+      toast.success(res.data.message);
     } catch (error) {
       console.log(error);
     }
   };
-
 
   return (
     <form onSubmit={handlesubmit} className="userorder">
       <div className="delivery">
         <h1 className="title-delivery">Delivery Details</h1>
         <input
+          required
           type="text"
           placeholder="First Name"
           className="first  form"
@@ -112,6 +115,7 @@ function Userorder() {
           value={deliveryData.first}
         />
         <input
+          required
           type="text"
           placeholder="Last Name"
           className="first second form"
@@ -120,6 +124,7 @@ function Userorder() {
           value={deliveryData.last}
         />
         <input
+          required
           type="text"
           placeholder="Email Address"
           className="email form"
@@ -128,6 +133,7 @@ function Userorder() {
           value={deliveryData.email}
         />
         <input
+          required
           type="text"
           placeholder="Address"
           className="email form"
@@ -136,6 +142,7 @@ function Userorder() {
           value={deliveryData.address}
         />
         <input
+          required
           type="text"
           placeholder="State"
           className="first form"
@@ -144,6 +151,7 @@ function Userorder() {
           value={deliveryData.state}
         />
         <input
+          required
           type="text"
           placeholder="Zip Code"
           className="first second form"
@@ -152,6 +160,7 @@ function Userorder() {
           value={deliveryData.zip}
         />
         <input
+          required
           type="text"
           placeholder="Phone"
           className="email form"
@@ -174,7 +183,7 @@ function Userorder() {
             </div>
           </div>
           <div id="dropin-container"></div>
-          <button type="submit" className="btn-pay " >
+          <button type="submit" className="btn-pay ">
             Proceed to pay
           </button>
         </div>

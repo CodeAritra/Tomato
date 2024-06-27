@@ -1,6 +1,7 @@
 import React, { useContext,useState,useEffect } from "react";
 import AppContext from "../../../context/AppContext";
 import axios from "axios"
+import {toast} from "react-toastify"
 import Sidebar from "../../../components/sidebar/Sidebar";
 
 function UpdateProduct() {
@@ -33,10 +34,12 @@ function UpdateProduct() {
           }
         );
        if(data.success){
-        console.log(data)
+        // console.log(data)
+        toast.success(data.message)
        };
       } catch (error) {
         console.log(error);
+        toast.error(error)
       }
   };
 

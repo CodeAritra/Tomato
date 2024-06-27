@@ -3,10 +3,16 @@ import productModel from "../models/Product.js";
 
 export const add = async (req, res) => {
   try {
-    const {quantity} = req.body
+    const { quantity } = req.body;
     const id = req.params.pid;
     const product = await productModel.findById(id);
     const user = await userModel.findOne({ username: req.user.username });
+    if (!user) {
+      res.send({
+        success: false,
+        message: "Please log in",
+      });
+    }
     let item = user.cartData.find((i) => i.id === id);
     if (item) {
       item.quantity++;
@@ -15,15 +21,15 @@ export const add = async (req, res) => {
         id: product.id,
         bookname: product.bookname,
         price: product.price,
-        quantity:quantity
+        quantity: quantity,
       });
     }
     await user.save();
     res.send({
-      success:true,
-      message:"Added to cart",
-      user
-    })
+      success: true,
+      message: "Added to cart",
+      user,
+    });
   } catch (error) {
     res.send({
       success: false,
@@ -42,6 +48,7 @@ export const remove = async (req, res) => {
     await user.save();
     res.send({
       success: true,
+      message: "Item removed",
       user,
     });
   } catch (error) {
@@ -57,7 +64,7 @@ export const removeAll = async (req, res) => {
     const user = await userModel.findOne({ username: req.user.username });
     user.cartData = [];
     await user.save();
-    res.json({ message: "Cart cleared" });
+    res.send({ success: true, message: "Cart cleared" });
   } catch (error) {
     res.send({
       success: false,

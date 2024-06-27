@@ -3,6 +3,7 @@ import "./Navbar.css";
 import { CiSearch } from "react-icons/ci";
 import { BsCart } from "react-icons/bs";
 import { IoMdArrowDropdown } from "react-icons/io";
+import {  toast } from 'react-toastify';
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/AppContext.js";
 import { useRef } from "react";
@@ -18,7 +19,8 @@ function Navbar() {
     localStorage.removeItem("token");
     setAuth({ ...auth, user: "", token: "" });
     // setIsLoggedin(false)
-    console.log("Logout");
+    // console.log("Logout");
+    toast.success("Logout Successfully")
     navigate("/")
   };
 
@@ -33,9 +35,7 @@ function Navbar() {
     }
   };
 
-  const handlecart = ()=>{
-    console.log("HI");
-  }
+
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -48,7 +48,7 @@ function Navbar() {
     <div className="navbar">
       <div className="logo">Book Store</div>
       <div className="searchbar">
-        <input className="inputnav" type="text" placeholder="Search a dish" />
+        <input className="inputnav" type="text" placeholder="Search a book" />
         <div className="icon">
           <CiSearch />
         </div>
@@ -57,7 +57,7 @@ function Navbar() {
         {auth.user ? (
           <>
             <Link to="/" className="icon link">Home</Link>
-            <Link to="/cart" className="icon link" onClick={handlecart}>
+            <Link to="/cart" className="icon link" >
               <BsCart />
             </Link>
             <div className="dropdown" ref={dropdownRef}>
@@ -83,6 +83,7 @@ function Navbar() {
                   <p className="dropdown-item" onClick={handlelogout}>
                     Log out
                   </p>
+                
                 </div>
               )}
             </div>

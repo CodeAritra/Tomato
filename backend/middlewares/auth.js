@@ -11,12 +11,12 @@ export const isLoggedIn = async (req, res, next) => {
       next();
     } catch (error) {
       console.error(error);
-      res.status(401).json({ message: "Not authorized, token failed", error });
+      res.status(401).send({ message: "Not authorized, token failed", error });
     }
   }
 
   if (!token) {
-    res.status(401).json({ message: "Not authorized, no token" });
+    res.status(401).send({ message: "Not authorized, no token" });
   }
 };
 

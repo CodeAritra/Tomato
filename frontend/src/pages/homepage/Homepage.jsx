@@ -3,9 +3,15 @@ import "./homepage.css";
 import { FaPlus } from "react-icons/fa6";
 import axios from "axios";
 import AppContext from "../../context/AppContext";
+import {  toast } from "react-toastify";
+
 
 function Homepage() {
-  const { product, setProduct, quantity, setQuantity,setCart } = useContext(AppContext);
+  const { product, setProduct, quantity, setQuantity,setCart,auth } = useContext(AppContext);
+
+
+
+
 
   const fetchAllProducts = async () => {
     const { data } = await axios.get(
@@ -33,9 +39,11 @@ function Homepage() {
 
   const addtocart = async (id) => {
     try {
+
       let data = localStorage.getItem("token");
       let parsed = JSON.parse(data);
       let token = parsed.token;
+      // console.log(token);
 
       let dataAdded = await axios.post(
         `http://localhost:5000/cart/add/${id}`,
@@ -48,12 +56,17 @@ function Homepage() {
       );
       if(dataAdded.data.success){
         setCart(dataAdded.data.user.cartData)
-        console.log("Added to cart");
+        // console.log("Added to cart");
       }
+      toast.success(dataAdded.data.message)
     } catch (error) {
       console.log(error);
     }
   };
+useEffect(()=>{
+  console.log("auth = ",auth);
+},[])
+
 
   return (
     <div className="homepage">

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./signup.css";
+import { toast } from "react-toastify";
 import { RxCross2 } from "react-icons/rx";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -7,7 +8,7 @@ import AppContext from "../../context/AppContext";
 
 function Signup() {
   const navigate = useNavigate();
-  const { setShowSignup, showSignup, setShowLogin, setAuth ,auth} =
+  const { setShowSignup, showSignup, setShowLogin, setAuth, auth } =
     useContext(AppContext);
   const [formData, setFormData] = useState({
     username: "",
@@ -33,14 +34,16 @@ function Signup() {
         "http://localhost:5000/auth/signup",
         formData
       );
+      console.log(res);
       if (res.data.success) {
         setAuth({
           user: res.data.createdUser,
           token: res.data.token,
         });
         setShowSignup((e) => !e);
-        navigate("/");
+        setShowLogin(true);
       }
+      toast.success(res.data.message);
     } catch (error) {
       console.log(error);
     }
@@ -64,6 +67,7 @@ function Signup() {
             </div>
             <form onSubmit={handlesubmit}>
               <input
+                required
                 className="inputsign"
                 type="text"
                 placeholder="Username"
@@ -72,6 +76,7 @@ function Signup() {
                 value={formData.username}
               />
               <input
+                required
                 className="inputsign"
                 type="text"
                 placeholder="Email"
@@ -81,6 +86,7 @@ function Signup() {
               />
 
               <input
+                required
                 className="inputsign"
                 type="password"
                 placeholder="Password"

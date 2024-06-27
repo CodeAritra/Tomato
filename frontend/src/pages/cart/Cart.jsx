@@ -3,12 +3,12 @@ import "./cart.css";
 import Table from "../admin/product list/Table";
 import axios from "axios";
 import { Link } from "react-router-dom";
+// import { toast } from "react-toastify";
 import AppContext from "../../context/AppContext";
 
 function Cart() {
   const { cart, setCart } = useContext(AppContext);
 
-  
   const fetchData = async () => {
     try {
       let data = localStorage.getItem("token");
@@ -48,9 +48,11 @@ function Cart() {
           },
         }
       );
+      console.log(removedData);
       if (removedData.data.success) {
         setCart(removedData.data.cartData);
       }
+      // toast.success(removedData.data.message);
     } catch (error) {
       console.log(error);
     }
@@ -71,16 +73,17 @@ function Cart() {
         }
       );
       if (removedData.data.success) {
-        console.log("Removed");
+        // console.log("Removed");
       }
+      toast.success(removedData.data.message);
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {
-    console.log(cart);
-  }, []);
+//  useEffect(() => {
+//     console.log(cart);
+//   }, []); 
 
   const calculateTotal = (cartItems) => {
     let total = 0;

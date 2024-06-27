@@ -42,6 +42,7 @@ export const createOrder = async (req, res) => {
 
     res.send({
       success: true,
+      message:"Order placed",
       newOrder,
       razorpayOrderId: razorpayOrder.id
     });

@@ -8,7 +8,7 @@ export const signupController = async (req, res) => {
     //chechking if user exist or not
      let existinguser = await userModel.findOne({ username });
      if (existinguser) {
-       return res.send("User already exist");
+       return res.send({message:"User already exist"});
      }
 
     //creating new user
@@ -48,7 +48,7 @@ export const loginController = async(req,res)=>{
 
         let user = await userModel.findOne({username})
         if(!user){
-            return res.send("Incorrect Credentials")
+            return res.send({message:"Incorrect Credentials"})
         }
 
         bcrypt.compare(password, user.password, function(err, result) {
@@ -66,7 +66,7 @@ export const loginController = async(req,res)=>{
             else{
                 res.send({
                   success:false,
-                  message:"error",
+                  message:"Incorrect Credentials",
                 })
             }
         });
@@ -74,7 +74,6 @@ export const loginController = async(req,res)=>{
     } catch (error) {
         res.send({
           success:false,
-          message:"error",
           error
         })
     }
