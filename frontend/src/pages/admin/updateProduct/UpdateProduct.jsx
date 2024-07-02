@@ -13,8 +13,14 @@ function UpdateProduct() {
     price: "",
   });
 
+  const [imageFile, setImageFile] = useState(null);
+
   const handlechange = (e) => {
     setProductData({ ...productData, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (e) => {
+    setImageFile(e.target.files[0]);
   };
 
   const handlesubmit = async (e) => {
@@ -24,9 +30,18 @@ function UpdateProduct() {
     let data = localStorage.getItem("token");
     let parsed = JSON.parse(data);
     let token = parsed.token;
+
+    const formData = new FormData();
+    formData.append("bookname", productData.bookname);
+    formData.append("quantity", productData.quantity);
+    formData.append("price", productData.price);
+    if (imageFile) {
+      formData.append("image", imageFile);
+    }
+
     try {
         const {data} = await axios.put(
-          `http://localhost:5000/product/update-product/${id}`,productData,
+          `http://localhost:5000/product/update-product/${id}`,formData,
           {
             headers: {
               authorization: `${token}`,
@@ -34,7 +49,7 @@ function UpdateProduct() {
           }
         );
        if(data.success){
-        // console.log(data)
+         console.log(data)
         toast.success(data.message)
        };
       } catch (error) {
@@ -47,6 +62,8 @@ function UpdateProduct() {
     console.log(productData);
   },[productData])
 
+
+
   return (
     <>
       <div className="create-product">
@@ -55,12 +72,24 @@ function UpdateProduct() {
         </div>
         <div className="productform">
           <h1 className="title-dashboard">Update Product</h1>
-          <form onSubmit={handlesubmit}>
+          <form onSubmit={handlesubmit} className="product-form-adjust" encType="multipart/form-data">
+          <div>
+            <label htmlFor="imageUpload">Choose an image:</label>
+            <input
+              type="file"
+              id="imageUpload"
+              name="image"
+              accept="image/*"
+              className="img-create"
+              onChange={handleFileChange}
+            />
+          </div>
+          <div>
             <input
               className="product"
               type="text"
               name="bookname"
-              placeholder="Book Name"
+              placeholder="book name"
               onChange={handlechange}
               value={productData.bookname}
             />
@@ -81,8 +110,9 @@ function UpdateProduct() {
               value={productData.quantity}
             />
             <button className="btndashboard" type="submit">
-            Update Product
+              Update Product
             </button>
+          </div>
           </form>
         </div>
       </div>

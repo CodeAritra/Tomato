@@ -86,6 +86,7 @@ function Productlist() {
                             bookname={p.bookname}
                             price={p.price}
                             quantity={p.quantity}
+                            img={p.img}
                             action={
                               <>
                                 <button

@@ -10,13 +10,14 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    img: { type: String},
     price: {
       type: Number,
       required: true,
     },
-    quantity:{
-      type:Number,
-      required:true,
+    quantity: {
+      type: Number,
+      required: true,
     },
     shipping: {
       type: Boolean,

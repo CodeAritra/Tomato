@@ -7,12 +7,19 @@ import UserRoute from "./Routes/UserRoute.js"
 import productRoute from "./Routes/productRoute.js"
 import cartRoute from "./Routes/cartRoute.js"
 import orderRoute from "./Routes/orderRoute.js"
+import path from "path"
+import { fileURLToPath } from 'url';
 
 configDotenv();
 connectDB();
 
 const app = express();
 const PORT = parseInt(process.env.PORT);
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.use(cors())
 app.use(express.json())

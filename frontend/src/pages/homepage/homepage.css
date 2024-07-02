@@ -7,7 +7,7 @@
 }
 .card {
     height: 20vw;
-    width: 20vw;
+    width: 21vw;
     padding: 10px;
     border-radius: 10px;
     background-color: white;
@@ -39,4 +39,9 @@
   .btncard:hover{
     background-color: #edede9;
   }
-  
+  .icon{
+    display: flex;
+  }
+  .icon2{
+    margin-top: 3px;
+  }

@@ -9,7 +9,7 @@ function Card({name,price}) {
   }
 
   return (
-    <div className="card">
+    <div className="card ">
       <img className="card-img" src="" alt="" />
       <div className="card-body">
         <div>

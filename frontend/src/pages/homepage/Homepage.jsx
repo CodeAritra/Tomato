@@ -79,7 +79,11 @@ function Homepage() {
     <div className="homepage">
       {product.map((p) => (
         <div className="card" key={p._id}>
-          <img className="card-img" src="" alt="" />
+         <img
+         className="card-img"
+          src={`http://localhost:5000/${p.img}`}
+          alt=""
+        />
           <div className="card-body">
             <div>
               <h3 className="card-title">Book name - {p.bookname}</h3>
@@ -90,7 +94,7 @@ function Homepage() {
               key={p._id}
               onClick={() => handleQuantityChange(p._id, 1)}
             >
-              {quantity[p._id] || 1} <FaPlus />
+              {quantity[p._id] || 1} <FaPlus className="icon2"/>
             </div>
           </div>
           <button className="btncard" onClick={() => addtocart(p._id)}>

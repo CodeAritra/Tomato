@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./cart.css";
-import Table from "../admin/product list/Table";
 import axios from "axios";
 import { Link } from "react-router-dom";
-// import { toast } from "react-toastify";
+ import { toast } from "react-toastify";
 import AppContext from "../../context/AppContext";
+import CartTable from "./CartTable";
 
 function Cart() {
   const { cart, setCart } = useContext(AppContext);
@@ -52,7 +52,7 @@ function Cart() {
       if (removedData.data.success) {
         setCart(removedData.data.cartData);
       }
-      // toast.success(removedData.data.message);
+       toast.success(removedData.data.message);
     } catch (error) {
       console.log(error);
     }
@@ -104,6 +104,10 @@ function Cart() {
   const total = calculateTotal(cart);
   const quantities = calculateQuantity(cart);
 
+  useEffect(()=>{
+    console.log("cart = ",cart);
+  },[])
+
   return (
     <div className="cart">
       {cart.length === 0 ? (
@@ -116,7 +120,6 @@ function Cart() {
             <table className="table ">
               <thead>
                 <tr>
-                  <th>Img</th>
                   <th>Book Name</th>
                   <th>Quantity</th>
                   <th>Total Price</th>
@@ -125,7 +128,7 @@ function Cart() {
               </thead>
               <tbody>
                 {cart.map((c) => (
-                  <Table
+                  <CartTable
                     key={c._id}
                     bookname={c.bookname}
                     price={c.price}
