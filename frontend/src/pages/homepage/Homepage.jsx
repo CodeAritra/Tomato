@@ -22,7 +22,7 @@ function Homepage() {
 
   useEffect(()=>{
     getUser()
-  },[])
+  },[quantity,setCart])
 
   const fetchAllProducts = async () => {
     const { data } = await axios.get(
