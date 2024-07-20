@@ -1,42 +1,29 @@
-import Navbar from "./components/navbar/Navbar";
-import { Routes, Route } from "react-router-dom";
-import Homepage from "./pages/homepage/Homepage";
-import { useContext, useState } from "react";
-import Signup from "./components/signup/Signup";
-import Login from "./components/login/Login";
-import Dashboard from "./pages/admin/dashboard/Dashboard";
-import CreateProduct from "./pages/admin/CreateProduct/CreateProduct";
-import Orders from "./pages/admin/orders/Orders";
-import Productlist from "./pages/admin/product list/Productlist";
-import AppContext from "./context/AppContext";
-import Cart from "./pages/cart/Cart";
-import Userorder from "./pages/UserOrder/Userorder";
+import React from "react";
+import HomePage from "./pages/Homepage";
+import CartPage from "./pages/Cart";
+import OrderPage from "./pages/Order";
+import SignupPage from "./pages/SignupPage";
+import LoginPage from "./pages/LoginPage";
+import Dashboard from "./pages/admin/Dashboard";
+import Createproduct from "./pages/admin/Createproduct";
+import UserOrder from "./pages/admin/UserOrder";
+import { Router, Routes, Route } from "react-router";
 
-
-function App() {
-  const {showLogin,showSignup} =useContext(AppContext)
-  
+const App = () => {
   return (
     <>
-    
-    {showLogin?<Login />:<></>}
-    {showSignup?<Signup />:<></>}
-
-      <div className="app">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/orders" element={<Userorder/>} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/create-product" element={<CreateProduct />} />
-          <Route path="/product-list" element={<Productlist />} />
-          <Route path="/admin/orders" element={<Orders />} />
-        </Routes>
-      </div>
-      
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/order" element={<OrderPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/createproduct" element={<Createproduct />} />
+        <Route path="/userorder" element={<UserOrder />} />
+      </Routes>
     </>
   );
-}
+};
 
 export default App;

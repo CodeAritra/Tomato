@@ -25,8 +25,7 @@ const UserSchema = mongoose.Schema(
     cartData: [cartItemSchema],
     order: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "order",
+        type: Array,
       },
     ],
     role: {
