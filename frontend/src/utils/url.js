@@ -1,1 +1,1 @@
-export const url = "http://localhost:5000/";
+export const url = "https://book-store-backend-px3o.onrender.com";
