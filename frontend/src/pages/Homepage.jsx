@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Container,
   Grid,
@@ -25,9 +25,7 @@ const HomePage = () => {
   //fetch all products
   const getAllProducts = async () => {
     try {
-      const { data } = await axios.get(
-        `${url}product/allproducts`
-      );
+      const { data } = await axios.get(`${url}product/allproducts`);
       if (data.success) {
         setProducts(data.allproducts);
       }
@@ -49,12 +47,9 @@ const HomePage = () => {
 
   const addToCart = async (id) => {
     try {
-      const { data } = await axios.post(
-        `${url}cart/add/${id}`,
-        {
-          quantity: quantity[id],
-        }
-      );
+      const { data } = await axios.post(`${url}cart/add/${id}`, {
+        quantity: quantity[id],
+      });
       if (data.success) {
         toast.success(data.message);
       }
@@ -65,28 +60,25 @@ const HomePage = () => {
 
   return (
     <Layout title={"Book Store"}>
-      <Container>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Products
-        </Typography>
+      <Container sx={{marginTop:"1rem"}}>
         <Grid container spacing={4}>
           {products.map((product) => (
             <Grid item key={product._id} xs={12} sm={6} md={4}>
               <Card>
                 <CardActionArea>
-                  <Box sx={{ height: "200px"}}>
+                  <Box sx={{ height: "200px" }}>
                     <CardMedia
                       component="img"
                       alt={product.bookname}
                       image={`${url}${product.img}`}
                       title={product.bookname}
                       style={{
-                        height: '200px',
-                        objectFit: 'contain',
+                        height: "200px",
+                        objectFit: "contain",
                       }}
                     />
                   </Box>
-                  <CardContent sx={{height:"150px"}}>
+                  <CardContent sx={{ height: "150px" }}>
                     <Typography gutterBottom variant="h5" component="h2">
                       {product.bookname}
                     </Typography>

@@ -10,3 +10,5 @@ const connectDB = async()=>{
 }
 
 export default connectDB
+
+// "mongodb+srv://aritradhank21:GGs13z5oH3FJ3nep@cluster0.aokde86.mongodb.net/

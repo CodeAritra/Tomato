@@ -1,4 +1,3 @@
-import React from "react";
 import HomePage from "./pages/Homepage";
 import CartPage from "./pages/Cart";
 import OrderPage from "./pages/Order";
@@ -7,7 +6,8 @@ import LoginPage from "./pages/LoginPage";
 import Dashboard from "./pages/admin/Dashboard";
 import Createproduct from "./pages/admin/Createproduct";
 import UserOrder from "./pages/admin/UserOrder";
-import { Router, Routes, Route } from "react-router";
+import { Routes, Route } from "react-router";
+
 
 const App = () => {
   return (

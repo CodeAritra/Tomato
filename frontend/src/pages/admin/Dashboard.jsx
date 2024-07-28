@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -22,9 +22,7 @@ const Dashboard = () => {
 
   const getAllProducts = async () => {
     try {
-      const { data } = await axios.get(
-        `${url}product/allproducts`
-      );
+      const { data } = await axios.get(`${url}product/allproducts`);
       // console.log(data);
       if (data.success) {
         setProducts(data.allproducts);
@@ -45,14 +43,11 @@ const Dashboard = () => {
     const token = JSON.parse(localStorage.getItem("auth")).token;
 
     try {
-      let { data } = await axios.delete(
-        `${url}product/delete-product/${id}`,
-        {
-          headers: {
-            authorization: `${token}`,
-          },
-        }
-      );
+      let { data } = await axios.delete(`${url}product/delete-product/${id}`, {
+        headers: {
+          authorization: `${token}`,
+        },
+      });
       // console.log(deletedproduct);
       toast.success(data.message);
     } catch (error) {
@@ -68,59 +63,71 @@ const Dashboard = () => {
   return (
     <>
       <Layout title={"Admin Dashboard"}>
-        {products.length!==0?<><Typography
-          variant="h4"
-          gutterBottom
-          align="center"
-          sx={{ marginTop: "1vw" }}
-        >
-          All Products
-        </Typography>
-        <Box sx={{ width: "95vw", margin: "auto" }}>
-          <TableContainer component={Paper}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Img</TableCell>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Price</TableCell>
-                  <TableCell>Quantity</TableCell>
-                  <TableCell>Action</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {products.map((product) => (
-                  <TableRow key={product._id}>
-                    <TableCell sx={{ width: "20rem" }}>
-                      <CardMedia
-                        component="img"
-                        alt={product.bookname}
-                        height="140"
-                        image={`${url}${product.img}`}
-                        title={product.bookname}
-                        sx={{ width: "auto" }}
-                      />
-                    </TableCell>
-                    <TableCell>{product.bookname}</TableCell>
-                    <TableCell>{product.price}</TableCell>
-                    <TableCell>{product.quantity}</TableCell>
-                    <TableCell>
-                      <Button onClick={()=>remove(product._id)}>Delete</Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Box></>:<><Typography
-          variant="h4"
-          gutterBottom
-          align="center"
-          sx={{ marginTop: "1vw" }}
-        >
-          No Products
-        </Typography></>}
-        
+        {products.length !== 0 ? (
+          <>
+            <Typography
+              variant="h4"
+              gutterBottom
+              align="center"
+              sx={{ marginTop: "1vw" }}
+            >
+              All Products
+            </Typography>
+            <Box sx={{ width: "95vw", margin: "auto" }}>
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell sx={{ textAlign: "center" }}>Img</TableCell>
+                      <TableCell>Name</TableCell>
+                      <TableCell>Price</TableCell>
+                      <TableCell>Quantity</TableCell>
+                      <TableCell>Action</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {products.map((product) => (
+                      <TableRow key={product._id}>
+                        <TableCell>
+                          <CardMedia
+                            component="img"
+                            alt={product.bookname}
+                            image={`${url}${product.img}`}
+                            title={product.bookname}
+                            sx={{
+                              width: { xs: "5rem", md: "9rem" },
+                              height: { md: "8rem" },
+                              margin: "auto",
+                            }}
+                          />
+                        </TableCell>
+                        <TableCell>{product.bookname}</TableCell>
+                        <TableCell>{product.price}</TableCell>
+                        <TableCell>{product.quantity}</TableCell>
+                        <TableCell>
+                          <Button onClick={() => remove(product._id)}>
+                            Delete
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Box>
+          </>
+        ) : (
+          <>
+            <Typography
+              variant="h4"
+              gutterBottom
+              align="center"
+              sx={{ marginTop: "1vw" }}
+            >
+              No Products
+            </Typography>
+          </>
+        )}
       </Layout>
     </>
   );
